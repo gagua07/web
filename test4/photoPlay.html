@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>图片轮播</title>
+<style>
+body{margin:0;padding:20px;background:#333;display:flex;justify-content:center;align-items:center;min-height:100vh}
+#carousel{width:400px;height:300px;border-radius:10px;box-shadow:0 5px 20px rgba(0,0,0,0.5)}
+</style>
+</head>
+<body>
+<img id="carousel" src="image1.jpg" alt="轮播图片">
+
+
+<script>
+const images=['image1.jpg','image2.jpg','image3.jpg','image4.jpg','image5.jpg'];
+let index=0;
+setInterval(()=>{
+    index=(index+1)%images.length;
+    document.getElementById('carousel').src=images[index];
+},2000);
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>版本号比较工具</title>
+<style>
+body{font-family:'Microsoft YaHei';background:#f5f7fa;padding:50px}
+.container{background:white;padding:30px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.1);max-width:500px;margin:0 auto}
+input{padding:10px;margin:10px 0;width:100%;border:1px solid #ddd;border-radius:5px}
+button{padding:10px 30px;background:#3498db;color:white;border:none;border-radius:5px;cursor:pointer;width:100%}
+#result{margin-top:20px;padding:15px;background:#e8f5e9;border-radius:5px;display:none}
+h3{margin-bottom:20px;text-align:center}
+</style>
+</head>
+<body>
+<div class="container">
+    <h3>版本号比较工具</h3>
+    <input type="text" id="v1" placeholder="版本号1，如：1.2.3">
+    <input type="text" id="v2" placeholder="版本号2，如：1.10.0">
+    <button onclick="compareVersions()">比较版本</button>
+    <div id="result"></div>
+</div>
+
+<script>
+function compare_versions(version1,version2){
+    const v1=version1.split('.').map(Number);
+    const v2=version2.split('.').map(Number);
+    const maxLen=Math.max(v1.length,v2.length);
+    for(let i=0;i<maxLen;i++){
+        const num1=v1[i]||0,num2=v2[i]||0;
+        if(num1>num2)return 1;
+        if(num1<num2)return-1;
+    }
+    return 0;
+}
+
+function compareVersions(){
+    const v1=document.getElementById('v1').value;
+    const v2=document.getElementById('v2').value;
+    const result=document.getElementById('result');
+    if(!v1||!v2){alert('请输入版本号');return;}
+    
+    const res=compare_versions(v1,v2);
+    const text=res===1?`"${v1}" 大于 "${v2}"`:res===-1?`"${v1}" 小于 "${v2}"`:`"${v1}" 等于 "${v2}"`;
+    result.textContent=text;
+    result.style.display='block';
+}
+</script>
+</body>
+</html>

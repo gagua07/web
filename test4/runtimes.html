@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小蓝晨跑天数计算</title>
+</head>
+<body>
+    <p>小蓝每周六、周日都晨跑，每月的 1、11、21、31 日也晨跑。
+    其它时间不晨跑。已知 2025 年 1 月 1 日是周三，编程计算小
+    蓝整个 2025 年晨跑多少天？</p>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateRunningDays() {
+            // 月份天数（2025年不是闰年）
+            var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            var totalDays = 0;
+            
+            // 2025年1月1日是周三（0=周日, 1=周一, ..., 6=周六）
+            var dayOfWeek = 3; // 周三
+            
+            for(var month = 0; month < 12; month++) {
+                for(var day = 1; day <= monthDays[month]; day++) {
+                    // 检查是否是周六或周日
+                    var isWeekend = (dayOfWeek === 6 || dayOfWeek === 0); // 6=周六, 0=周日
+                    
+                    // 检查是否是特殊日期
+                    var isSpecialDay = (day === 1 || day === 11 || day === 21 || day === 31);
+                    
+                    // 如果满足任一条件，就计入晨跑天数
+                    if (isWeekend || isSpecialDay) {
+                        totalDays++;
+                    }
+                    
+                    // 更新星期几（下一天）
+                    dayOfWeek = (dayOfWeek + 1) % 7;
+                }
+            }
+            
+            return totalDays;
+        }
+        
+        // 调用函数并显示结果
+        var result = calculateRunningDays();
+        document.getElementById('result').innerHTML = 
+            '<h2>计算结果：小蓝2025年晨跑 ' + result + ' 天</h2>';
+        
+        // 在控制台也输出结果
+        console.log('小蓝2025年晨跑天数：', result);
+    </script>
+</body>
+</html>

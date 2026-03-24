@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多类型数据处理函数</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 400px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .input-wrapper {
+            flex: 1;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            height: 40px;
+            padding: 0 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .button-wrapper button {
+            height: 40px;
+            width: 60px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .button-wrapper button:hover {
+            background: #2980b9;
+        }
+
+        .result-area {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            min-height: 60px;
+            text-align: left;
+        }
+
+        .result-label {
+            color: #7f8c8d;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+
+        .result-content {
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .result-value {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>多类型数据处理函数</h2>
+        
+        <form onsubmit="return false">
+            <div class="input-wrapper">
+                <input type="text" id="inputData" placeholder="输入数字、字符串或布尔值">
+            </div>
+            <div class="button-wrapper">
+                <input type="submit" id="submitBtn" value="处理" onclick="handleSubmit()">
+            </div>
+        </form>
+
+        <div class="result-area">
+            <div class="result-label">处理结果：</div>
+            <div class="result-content" id="resultContent">等待输入...</div>
+        </div>
+    </div>
+
+    <script>
+        function doSomething(data) {
+            const type = Object.prototype.toString.call(data);
+            switch (type) {
+                case '[object Number]': return data * data;
+                case '[object String]': return data.length;
+                case '[object Boolean]': return !data;
+                default: return null;
+            }
+        }
+
+        function convertInput(value) {
+            if (value.trim() === '') return { error: '请输入数据' };
+            
+            if (value.toLowerCase() === 'true') return { data: true, type: '布尔值' };
+            if (value.toLowerCase() === 'false') return { data: false, type: '布尔值' };
+            
+            if (!isNaN(value) && value.trim() !== '') {
+                return { data: Number(value), type: '数字' };
+            }
+            
+            return { data: value, type: '字符串' };
+        }
+
+        function handleSubmit() {
+            const input = document.getElementById('inputData');
+            const resultContent = document.getElementById('resultContent');
+            const value = input.value;
+            
+            const conversion = convertInput(value);
+            
+            if (conversion.error) {
+                resultContent.innerHTML = `<span class="error">${conversion.error}</span>`;
+                return;
+            }
+            
+            // 调用你的doSomething函数
+            const result = doSomething(conversion.data);
+            
+            // 格式化显示结果
+            let message = `<span class="result-value">原始值：${value} (${conversion.type})</span><br>`;
+            
+            if (conversion.type === '数字') {
+                message += `平方结果：${result}`;
+            } else if (conversion.type === '字符串') {
+                message += `字符长度：${result}`;
+            } else if (conversion.type === '布尔值') {
+                message += `相反值：${result}`;
+            } else {
+                message += `结果：${result}`;
+            }
+            
+            resultContent.innerHTML = message;
+        }
+
+        document.getElementById('inputData').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleSubmit();
+            }
+        });
+    </script>
+</body>
+</html>

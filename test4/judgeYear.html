@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>闰年判断器</title>
+<style>
+body{font-family:'Microsoft YaHei';background:#f5f7fa;padding:50px;text-align:center}
+.container{background:white;padding:30px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.1);max-width:400px;margin:0 auto}
+input{padding:10px;margin:10px;width:200px;border:1px solid #ddd;border-radius:5px}
+button{padding:10px 20px;background:#3498db;color:white;border:none;border-radius:5px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="container">
+    <h3>闰年判断器</h3>
+    <input type="text" id="txtYear" placeholder="请输入年份">
+    <br>
+    <button onclick="testLeapYear()">判断</button>
+</div>
+
+<script>
+function testLeapYear(){
+    const year = parseInt(document.getElementById('txtYear').value);
+    if(isNaN(year)) return alert('请输入有效年份');
+    const isLeap = (year%4===0 && year%100!==0) || year%400===0;
+    alert(year + (isLeap?'是':'不是') + '闰年');
+    setInterval(() => {
+        
+    }, interval);
+}
+</script>
+</body>
+</html>

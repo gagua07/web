@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小蓝2025年晨跑天数计算器</title>
+    <style>
+        /* 你的样式保持不变 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+
+        .description {
+            margin-bottom: 30px;
+            color: #555;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .criteria {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+            text-align: left;
+        }
+
+        .criteria h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .criteria ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .criteria li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .criteria li:before {
+            content: "•";
+            color: #3498db;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        .result {
+            background: #e8f5e9;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #4caf50;
+        }
+
+        .result h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .total-days {
+            font-size: 4rem;
+            color: #4caf50;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .result p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>小蓝2025年晨跑天数计算器</h1>
+
+        <div class="description">
+            <p>已知2025年1月1日是周三，计算小蓝整个2025年晨跑多少天？</p>
+        </div>
+
+        <div class="criteria">
+            <h2>晨跑条件</h2>
+            <ul>
+                <li>每周六、周日</li>
+                <li>每月的1日、11日、21日、31日</li>
+                <li>同时满足多个条件只算一天</li>
+            </ul>
+        </div>
+
+        <div class="result">
+            <h2>2025年晨跑总天数</h2>
+            <div class="total-days" id="total-days"></div>
+            <p>天</p>
+        </div>
+    </div>
+
+    <!-- 只保留一个script块，放在body末尾 -->
+    <script>
+        function calculateRunningDays() {
+            var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            var totalDays = 0;
+            var dayOfWeek = 3;  // 2025年1月1日是周三
+
+            for (var month = 0; month < 12; month++) {
+                for (var day = 1; day <= monthDays[month]; day++) {
+                    var isWeekend = (dayOfWeek === 6 || dayOfWeek === 0);
+                    var isSpecialDay = (day === 1 || day === 11 || day === 21 || day === 31);
+
+                    if (isWeekend || isSpecialDay) {
+                        totalDays++;
+                    }
+                    dayOfWeek = (dayOfWeek + 1) % 7;
+                }
+            }
+            return totalDays;
+        }
+
+        // 计算并显示结果
+        var result = calculateRunningDays();
+        // ✅ 正确：使用textContent，ID匹配
+        document.getElementById('total-days').textContent = result;
+        console.log('小蓝2025年晨跑天数：', result);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #nine {
+        white-space: pre;
+    }
+</style>
+
+<body>
+    <!-- <div id="nine">小蓝每周六、周日都晨跑，每月的 1、11、21、31 日也晨跑。其它时间不晨跑。已知 2025 年 1 月 1 日是周三，编程计算小蓝整个 2025 年晨跑:</div> -->
+    <!-- <div id="cheakWord">
+       <input id="v" type="text">
+       <button id="btn" onclick="subm()">检验</button>
+    </div> -->
+    <!-- <p id ='p1' onclick="car.first()">我爱Web！！！</p> -->
+    <!-- <input type="text" name="txtYear" id="txtYear">
+    <input type="button" value="判断" onclick="testLeapYear()"> -->
+    <div id="d"></div>
+    <!-- <img id="slideImage" width="500" height="400"> -->
+    <!-- <script>
+        function testLeapYear() {
+            var p=document.createElement('p');
+            var text=document.getElementById('txtYear').value;
+            if(isNaN(text)||text.length === 0){//判断空字符
+                alert('不是年份，重新输入');
+            }
+            else if((text%4===0 && text%100!==0) || text%400===0){
+                alert(`${text}年是闰年`);
+            }
+            else
+                alert(`${text}年不是闰年`);
+        } 
+    </script> -->
+    <input type="text" id="v1">
+    <input type="text" id="v2">
+    <button id="btn" onclick="compareVersions()">比较版本</button>
+    <div id="result"></div>
+
+</body>
+<script>
+        const result=document.getElementById('result');
+
+    function compare_versions(version1,version2){
+        const p=document.createElement('p');
+        var v1=version1.split('.').map(Number);
+        var v2=version2.split('.').map(Number);
+        var count=Math.max(v1.length,v2.length)
+        for(let i=0;i<count;i++){
+            if(v1[i]>v2[i])
+            {
+                p.textContent=`版本比较：${version1}>${version2}`;
+                result.appendChild(p);
+                return ;
+            }
+            else if(v1[i]<v2[i]){
+                p.textContent=`版本比较：${version1}<${version2}`;
+                result.appendChild(p);
+                return ;
+            }
+        }
+    }
+    function compareVersions(){
+        const version1=document.getElementById('v1').value;
+        const version2=document.getElementById('v2').value;
+        compare_versions(version1,version2);
+    }
+
+
+
+        // const images = ['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg'];
+        // let currentIndex = 0;
+
+        // const slideImage = document.getElementById('slideImage');
+        
+        // function play(){
+        //     currentIndex=(currentIndex+1)%5;
+        // slideImage.src = images[currentIndex];
+
+        // }
+
+        // setInterval(play, 500);
+
+
+    // class Athlete{
+    //     name ;
+    //     score;
+    //     constructor(name,score){
+    //         this.name=name;
+    //         this.score=score;
+    //     }
+    // }
+    // class SportMeet {
+    //     athletes=[];
+    //     constructor(){
+
+    //     }
+    //     addAthlete(name,score){
+    //         let a1=new Athlete(name,score);
+    //         this.athletes.push(a1);
+    //     }
+    //     sortAthletesByScore(){
+    //         this.athletes.sort((a,b)=>a.score-b.score);
+    //     }
+    //     printSortedResults(){
+    //         this.sortAthletesByScore();
+    //         this.athletes.forEach((athlete, index) => {
+    //         console.log(`${index + 1}. ${athlete.name}：${athlete.score} 秒`);
+    //     });
+    //     }
+    // }
+
+    // let btn=document.getElementById('btn');
+    // let textValue=document.getElementById('v');    
+    // let c=document.getElementById('cheakWord');    
+    // function check(str){
+    //     const cleanedStr = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+    //     return cleanedStr==cleanedStr.split('').reverse().join('');
+    // }
+    // function subm(){
+    //     var p=document.createElement('p');
+    //     var v=textValue.value;
+    //     var result=check(v);
+    //     if (result)
+    //         result=`${v}是回文`;
+    //     else
+    //         result=`${v}不是回文`;
+    //     p.textContent=result;
+    //     c.appendChild(p);
+    // }
+
+
+
+    // let a=document.getElementById('nine');
+    // function doSomething(data) {
+    //     if (typeof data === 'number') {
+    //         return data * data;
+    //     } else if (typeof data === 'string') {
+    //         return data.length;
+    //     } else if (typeof data === 'boolean') {
+    //         return !data;
+    //     } else {
+    //         return null;
+    //     }
+    // }
+
+
+
+
+
+    // let a=document.getElementById('nine');
+    // const add= document.createElement('p');
+    // function days(){
+    //     var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    //     var totalDays = 0;
+    //     var times=0;
+    //     var sday=3;
+    //     let i =0;
+    //     for(let month =0;month<12;month++){
+
+    //         for(let day=1;day<=monthDays[i];day++){
+    //             if(sday == 0||sday ==6|| day==1||day==11|| day==21|| day==31)
+    //                 times++;
+    //             if(sday<6)
+    //                 sday++;
+    //             else
+    //                 sday=0;
+    //         }
+    //         i++;
+    //     }
+    //     return times;
+    // }
+    // add.textContent=`${days()} 天`;
+    // a.appendChild(add);
+    // console.log(days());
+
+
+
+
+
+    // // window.onload=function () {
+    //         // n=document.getElementById('nine');
+    //     function tableMult(){
+    //         let result = "";
+    //         for (let i = 1; i <= 9; i++) {
+    //             for (let j = 1; j <= i; j++) {
+    //                 result += `${j} × ${i} = ${(i * j)}\t`;
+    //             }
+    //             result += "\n";
+    //         }
+    //         return result;
+    //         }
+    //      console.log(tableMult());
+
+
+    class person {
+        name = 'person';
+        age;
+        say(params) {
+            console.log(params);
+        }
+        first() {
+            // 为了让点击有效果，这里也输出到控制台
+            const result = `${2 + 3}`;
+            console.log("first()方法被调用，结果是：", result);
+            return result;
+        }
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+    }
+    let p = document.getElementById('p1');
+    console.log(p);
+    const car = new person("car", 20);
+</script>
+
+</html>
